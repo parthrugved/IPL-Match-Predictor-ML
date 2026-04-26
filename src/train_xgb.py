@@ -135,18 +135,32 @@ X_train, X_test, y_train, y_test, meta_train, meta_test = train_test_split(
     X, y, match_meta, test_size=0.2, random_state=42
 )
 
+# model_xg = XGBClassifier(
+#     n_estimators=500,
+#     max_depth=5,
+#     learning_rate=0.03,
+#     subsample=0.9,
+#     colsample_bytree=0.9,
+#     min_child_weight=3,
+#     gamma=0.1,
+#     reg_alpha=0.3,
+#     reg_lambda=5,
+#     random_state=42
+# )
+
 model_xg = XGBClassifier(
-    n_estimators=500,
-    max_depth=5,
-    learning_rate=0.03,
-    subsample=0.9,
-    colsample_bytree=0.9,
-    min_child_weight=3,
-    gamma=0.1,
-    reg_alpha=0.3,
-    reg_lambda=5,
+    n_estimators=400,
+    max_depth=3,
+    learning_rate=0.05,
+    subsample=0.8,
+    colsample_bytree=0.8,
+    min_child_weight=5,
+    gamma=0.3,
+    reg_alpha=1,
+    reg_lambda=8,
     random_state=42
 )
+
 model_xg.fit(X_train, y_train)
 pred = model_xg.predict(X_test)
 
