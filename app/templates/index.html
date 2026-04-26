@@ -36,7 +36,19 @@
         <section class="panel predictor">
             <h2>Predict A Match</h2>
             <p class="subtle">Use realistic match inputs. Toss winner must be one of the selected teams.</p>
+            <div class="team-logos">
+                <div class="logo-box">
+                    <img id="logo1" src="/static/logos/default.png" alt="Team 1 Logo">
+                    <p id="team1-name"></p>
+                </div>
 
+                <div class="vs">VS</div>
+
+                <div class="logo-box">
+                    <img id="logo2" src="/static/logos/default.png" alt="Team 2 Logo">
+                    <p id="team2-name"></p>
+                </div>
+            </div>
             <form method="post">
                 <div class="grid">
                     <div class="field">
@@ -211,5 +223,59 @@
         document.getElementById("team1").addEventListener("change", updateOptions);
         document.getElementById("team2").addEventListener("change", updateOptions);
     </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            function updateLogos() {
+                const team1 = document.getElementById("team1").value;
+                const team2 = document.getElementById("team2").value;
+
+                const logo1 = document.getElementById("logo1");
+                const logo2 = document.getElementById("logo2");
+
+                const name1 = document.getElementById("team1-name");
+                const name2 = document.getElementById("team2-name");
+
+                // TEAM 1
+                if (team1) {
+                    logo1.src = `/static/logos/${team1}.png`;
+                    name1.innerText = team1;
+                } else {
+                    logo1.src = "/static/logos/default.png";
+                    name1.innerText = "Team 1";
+                }
+
+                // TEAM 2
+                if (team2) {
+                    logo2.src = `/static/logos/${team2}.png`;
+                    name2.innerText = team2;
+                } else {
+                    logo2.src = "/static/logos/default.png";
+                    name2.innerText = "Team 2";
+                }
+                if (team1) {
+                    logo1.src = `/static/logos/${team1}.png`;
+                    logo1.classList.add("active");
+                } else {
+                    logo1.src = "/static/logos/default.png";
+                    logo1.classList.remove("active");
+                }
+
+                if (team2) {
+                    logo2.src = `/static/logos/${team2}.png`;
+                    logo2.classList.add("active");
+                } else {
+                    logo2.src = "/static/logos/default.png";
+                    logo2.classList.remove("active");
+                }
+            }
+
+            // Attach listeners AFTER DOM loads
+            document.getElementById("team1").addEventListener("change", updateLogos);
+            document.getElementById("team2").addEventListener("change", updateLogos);
+
+        });
+    </script>
 </body>
+
 </html>

@@ -10,6 +10,8 @@ MODEL_PATH = BASE_DIR / "models" / "xgb_model.pkl"
 COLUMNS_PATH = BASE_DIR / "models" / "columns.pkl"
 DATA_PATH = BASE_DIR / "data" / "matches.csv"
 
+
+
 app = Flask(__name__)
 
 # ---------------- LOAD ----------------
@@ -31,6 +33,24 @@ def load_artifacts():
     return model, columns, df
 
 MODEL, MODEL_COLUMNS, MATCH_HISTORY = load_artifacts()
+
+valid_teams = [
+    "Mumbai Indians",
+    "Chennai Super Kings",
+    "Royal Challengers Bengaluru",
+    "Kolkata Knight Riders",
+    "Delhi Capitals",
+    "Punjab Kings",
+    "Rajasthan Royals",
+    "Sunrisers Hyderabad",
+    "Gujarat Titans",
+    "Lucknow Super Giants"
+]
+
+MATCH_HISTORY = MATCH_HISTORY[
+    (MATCH_HISTORY["team1"].isin(valid_teams)) &
+    (MATCH_HISTORY["team2"].isin(valid_teams))
+]
 
 TEAMS = sorted(set(MATCH_HISTORY["team1"]) | set(MATCH_HISTORY["team2"]))
 CITIES = sorted(MATCH_HISTORY["city"].dropna().unique())
@@ -67,7 +87,7 @@ def build_feature_row(team1, team2, city, toss_winner, toss_decision):
     team2_form = recent_form(team2)
     h2h = head_to_head(team1, team2)
 
-    # 🔥 important features
+    #  important features
     features = {
         "team1_form": team1_form,
         "team2_form": team2_form,
@@ -108,6 +128,8 @@ TEAM_HOME_GROUNDS = {
     "Gujarat Titans": ["Ahmedabad"],
     "Lucknow Super Giants": ["Lucknow"]
 }
+
+
 
 # ---------------- ROUTES ----------------
 
