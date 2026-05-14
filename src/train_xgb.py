@@ -176,7 +176,7 @@ print(comparison_df.head(15))
 print("\nAccuracy:", accuracy_score(y_test, pred) * 100)
 
 prob = model_xg.predict_proba(X_test)[0][1]
-print("Probability of winning:", prob)
+print("Probability of winning:", prob *100)
 
 with open("models/xgb_model.pkl", "wb") as f:
     pickle.dump(model_xg, f)

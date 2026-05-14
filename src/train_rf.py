@@ -95,7 +95,7 @@ X_train, X_test, y_train, y_test, meta_train, meta_test = train_test_split(
 
 # ------------------- MODEL -------------------
 model = RandomForestClassifier(
-    n_estimators=600,
+    n_estimators=150,
     max_depth=12,
     min_samples_split=5,
     random_state=42
